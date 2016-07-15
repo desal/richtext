@@ -11,7 +11,7 @@ var _ Format = &AnsiFormat24b{}
 var ansiFormat24b *AnsiFormat24b
 
 func init() {
-	ansiFormat24b := &AnsiFormat24b{}
+	ansiFormat24b = &AnsiFormat24b{}
 	ansiFormat24b.init(ansiFormat24b)
 }
 

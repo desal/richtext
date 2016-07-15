@@ -2,5 +2,5 @@
 
 package richtext
 
-func isWindowsConsole() bool { return false }
-func Console() *int          { return nil }
+func isWindowsConsole() bool   { return false }
+func Console() *SilencedFormat { return nil }

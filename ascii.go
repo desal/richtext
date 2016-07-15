@@ -11,7 +11,7 @@ var asciiFormat *AsciiFormat
 var _ Format = &AsciiFormat{}
 
 func init() {
-	asciiFormat := &AsciiFormat{}
+	asciiFormat = &AsciiFormat{}
 	asciiFormat.init(asciiFormat)
 }
 

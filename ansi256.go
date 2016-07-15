@@ -12,7 +12,7 @@ var _ Format = &AnsiFormat256{}
 var ansiFormat256 *AnsiFormat256
 
 func init() {
-	ansiFormat256 := &AnsiFormat256{}
+	ansiFormat256 = &AnsiFormat256{}
 	ansiFormat256.init(ansiFormat256)
 }
 func Ansi256() *AnsiFormat256 {
