@@ -5,10 +5,18 @@ import (
 	"math"
 )
 
-type ansiFormat256 struct{}
+type AnsiFormat256 struct{ ansiFormat }
 
-func Ansi256() Format {
-	return &ansiFormat256{}
+var _ Format = &AnsiFormat256{}
+
+var ansiFormat256 *AnsiFormat256
+
+func init() {
+	ansiFormat256 := &AnsiFormat256{}
+	ansiFormat256.init(ansiFormat256)
+}
+func Ansi256() *AnsiFormat256 {
+	return ansiFormat256
 }
 
 var colour6b = [...]uint8{0, 95, 135, 175, 215, 255}
@@ -42,20 +50,24 @@ func rgbTo248(c Color) uint8 {
 	return 16 + ri*36 + gi*6 + bi
 }
 
-func (a *ansiFormat256) String(fg, bg Color, flags ...Flag) func(format string, a ...interface{}) string {
+func (a *AnsiFormat256) MakePrintf(fg, bg Color, flags ...Flag) func(format string, a ...interface{}) (int, error) {
 	enc := []string{}
 	if fg != None {
 		enc = append(enc, fmt.Sprintf("38;5;%d", rgbTo248(fg)))
 	}
 	if bg != None {
-		enc = append(enc, fmt.Sprintf("48;5;%d", rgbTo248(fg)))
+		enc = append(enc, fmt.Sprintf("48;5;%d", rgbTo248(bg)))
 	}
 	return ansiPrinter(enc, flags)
 }
 
-func (a *ansiFormat256) Bytes(fg, bg Color, flags ...Flag) func(format string, a ...interface{}) []byte {
-	f := a.String(fg, bg, flags...)
-	return func(format string, a ...interface{}) []byte {
-		return []byte(f(format, a...))
+func (a *AnsiFormat256) MakeSprintf(fg, bg Color, flags ...Flag) func(format string, a ...interface{}) string {
+	enc := []string{}
+	if fg != None {
+		enc = append(enc, fmt.Sprintf("38;5;%d", rgbTo248(fg)))
 	}
+	if bg != None {
+		enc = append(enc, fmt.Sprintf("48;5;%d", rgbTo248(bg)))
+	}
+	return ansiSPrinter(enc, flags)
 }

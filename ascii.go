@@ -4,21 +4,25 @@ import (
 	"fmt"
 )
 
-type asciiFormat struct{}
+type AsciiFormat struct{ ansiFormat }
 
-//This varies by platform, this is what windows has, the most likely source of us
-//running a 16 color pallette
+var asciiFormat *AsciiFormat
 
-func Ascii() Format {
-	return &asciiFormat{}
+var _ Format = &AsciiFormat{}
+
+func init() {
+	asciiFormat := &AsciiFormat{}
+	asciiFormat.init(asciiFormat)
 }
 
-func (a *asciiFormat) String(fg, bg Color, flags ...Flag) func(format string, a ...interface{}) string {
+func Ascii() *AsciiFormat {
+	return asciiFormat
+}
+
+func (a *AsciiFormat) MakePrintf(fg, bg Color, flags ...Flag) func(format string, a ...interface{}) (int, error) {
+	return fmt.Printf
+}
+
+func (a *AsciiFormat) MakeSprintf(fg, bg Color, flags ...Flag) func(format string, a ...interface{}) string {
 	return fmt.Sprintf
-}
-
-func (a *asciiFormat) Bytes(fg, bg Color, flags ...Flag) func(format string, a ...interface{}) []byte {
-	return func(format string, a ...interface{}) []byte {
-		return []byte(fmt.Sprintf(format, a...))
-	}
 }
