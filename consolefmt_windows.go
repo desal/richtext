@@ -166,7 +166,12 @@ func (c *ConsoleFormat) ErrorLine(format string, a ...interface{}) {
 	fmt.Printf(format, a...)
 	c.setConsoleTextAttribute(csbiInfo.wAttributes)
 }
+
 func (c *ConsoleFormat) PrintLine(format string, a ...interface{}) {
 	fmt.Printf(format, a...)
 	fmt.Print("\n")
+}
+
+func (c *ConsoleFormat) Print(format string, a ...interface{}) {
+	fmt.Printf(format, a...)
 }

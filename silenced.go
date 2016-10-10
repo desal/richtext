@@ -19,3 +19,5 @@ func (*SilencedFormat) PrintLine(format string, a ...interface{}) {}
 func (*SilencedFormat) WarningLine(format string, a ...interface{}) {}
 
 func (*SilencedFormat) ErrorLine(format string, a ...interface{}) {}
+
+func (*SilencedFormat) Print(format string, a ...interface{}) {}

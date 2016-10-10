@@ -79,3 +79,7 @@ func (f *ansiFormat) ErrorLine(format string, a ...interface{}) {
 	fmt.Printf(format, a...)
 	fmt.Print("\n")
 }
+
+func (f *ansiFormat) Print(format string, a ...interface{}) {
+	fmt.Printf(format, a...)
+}

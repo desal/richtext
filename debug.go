@@ -42,3 +42,7 @@ func (f *DebugFormat) ErrorLine(format string, a ...interface{}) {
 	f.w.Write([]byte(fmt.Sprintf(format, a...)))
 	f.w.Write([]byte("[]\n"))
 }
+
+func (f *DebugFormat) Print(format string, a ...interface{}) {
+	f.w.Write([]byte(fmt.Sprintf(format, a...)))
+}

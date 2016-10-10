@@ -33,3 +33,7 @@ func (f *TestFormat) WarningLine(format string, a ...interface{}) {
 func (f *TestFormat) ErrorLine(format string, a ...interface{}) {
 	f.Logf("ERROR: "+format, a...)
 }
+
+func (f *TestFormat) Print(format string, a ...interface{}) {
+	f.Logf(format, a...)
+}

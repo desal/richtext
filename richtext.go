@@ -18,6 +18,7 @@ type (
 		WarningLine(format string, a ...interface{})
 		ErrorLine(format string, a ...interface{})
 		PrintLine(format string, a ...interface{})
+		Print(format string, a ...interface{})
 	}
 )
 
